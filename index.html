@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Shots - Katia Photography</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Fonts */
+        .font-sans-custom {
+            font-family: 'Urbanist', sans-serif;
+        }
+
+        /* Background container */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        .bg-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Gradient overlay (black to transparent) */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.5) 30%,
+                rgba(0, 0, 0, 1) 80%,
+                rgba(0, 0, 0, 1) 100%
+            );
+            z-index: -1;
+        }
+
+        /* Neon glow effect for logo */
+        .neon-glow {
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1))
+                    drop-shadow(0 0 30px rgba(255, 215, 0, 0.8))
+                    drop-shadow(0 0 45px rgba(255, 215, 0, 0.6))
+                    drop-shadow(0 0 60px rgba(255, 215, 0, 0.4));
+            animation: pulse-glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1))
+                        drop-shadow(0 0 30px rgba(255, 215, 0, 0.8))
+                        drop-shadow(0 0 45px rgba(255, 215, 0, 0.6));
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(255, 215, 0, 1))
+                        drop-shadow(0 0 40px rgba(255, 215, 0, 0.9))
+                        drop-shadow(0 0 60px rgba(255, 215, 0, 0.7))
+                        drop-shadow(0 0 80px rgba(255, 215, 0, 0.5));
+            }
+            100% {
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1))
+                        drop-shadow(0 0 35px rgba(255, 215, 0, 0.85))
+                        drop-shadow(0 0 50px rgba(255, 215, 0, 0.65))
+                        drop-shadow(0 0 70px rgba(255, 215, 0, 0.45));
+            }
+        }
+
+        /* Social button hover effects */
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .social-btn:active {
+            transform: translateY(-1px) scale(1.01);
+        }
+
+        /* Text glow for title */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+                         0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Smooth scroll container */
+        .content-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Stars animation container */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Individual star */
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+            animation: shootingStar 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        /* Shooting star animation */
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(0) translateY(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateX(0) translateY(0) scale(1);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(300px) translateY(300px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            animation: sparkleAnim 2s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* Shooting star container */
+        .shooting-star-trail {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* Leading star (the main star) */
+        .leading-star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.9),
+                        0 0 20px 6px rgba(255, 215, 0, 0.6);
+            animation: shootingMove 2.5s ease-out forwards;
+        }
+
+        /* Trail stars (stars that follow) */
+        .trail-star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.5);
+            animation: trailFade 1.5s ease-out forwards;
+        }
+
+        @keyframes shootingMove {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(500px, 500px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes trailFade {
+            0% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans-custom text-white overflow-x-hidden">
+    <!-- Background Image -->
+    <div class="bg-container">
+        <img src="img/background.png" alt="Background">
+    </div>
+    
+    <!-- Dark Overlay -->
+    <div class="bg-overlay"></div>
+
+    <!-- Stars Animation Container -->
+    <div class="stars-container" id="starsContainer"></div>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
+            <!-- Header/Logo Section -->
+            <header class="text-center mb-10">
+                <!-- Logo Icon with Neon Glow -->
+                <div class="flex justify-center">
+                    <img 
+                        src="img/v-logo.png" 
+                        alt="Dream Shots Logo" 
+                        class="w-64 h-64 md:w-64 md:h-64 lg:w-72 lg:h-72 neon-glow object-contain"
+                    >
+                </div>
+            </header>
+
+            <!-- Social Links Section -->
+            <nav class="w-full max-w-sm space-y-3 mb-8">
+                <!-- Facebook Button -->
+                <a 
+                    href="#" 
+                    class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
+                    onclick="openLink('https://facebook.com/dreamshots.dz')"
+                >
+                    <img src="img/Facebook.png" alt="Facebook" class="w-7 h-7 object-contain">
+                    <span class="flex-1 text-center text-gray-800 font-semibold text-base">Facebook</span>
+                    <span class="w-7"></span>
+                </a>
+
+                <!-- Instagram Button -->
+                <a 
+                    href="#" 
+                    class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
+                    onclick="openLink('https://instagram.com/dreamshots.dz')"
+                >
+                    <img src="img/Instagram.png" alt="Instagram" class="w-7 h-7 object-contain">
+                    <span class="flex-1 text-center text-gray-800 font-semibold text-base">Instagram</span>
+                    <span class="w-7"></span>
+                </a>
+
+                <!-- TikTok Button -->
+                <a 
+                    href="#" 
+                    class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
+                    onclick="openLink('https://tiktok.com/@dreamshots.dz')"
+                >
+                    <img src="img/TikTok.png" alt="TikTok" class="w-7 h-7 object-contain">
+                    <span class="flex-1 text-center text-gray-800 font-semibold text-base">TikTok</span>
+                    <span class="w-7"></span>
+                </a>
+
+                <!-- Gmail Button -->
+                <a 
+                    href="#" 
+                    class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
+                    onclick="openLink('mailto:dreamshots.dz@gmail.com')"
+                >
+                    <img src="img/Gmail.png" alt="Gmail" class="w-7 h-7 object-contain">
+                    <span class="flex-1 text-center text-gray-800 font-semibold text-base">Gmail</span>
+                    <span class="w-7"></span>
+                </a>
+            </nav>
+
+            <!-- Description Text -->
+            <p class="text-center text-white/90 text-xs md:text-sm max-w-md px-4 leading-relaxed">
+                Capturer vos moments les plus précieux avec passion et créativité. 
+                Spécialisée dans la photographie de mariages et d'événements heureux.
+            </p>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center py-6 px-4">
+            <p class="text-white/75 text-xs md:text-sm">
+                Copyright © 2026 Dream Shots
+            </p>
+        </footer>
+    </div>
+
+    <!-- JavaScript for Link Handling and Animations -->
+    <script>
+        function openLink(url) {
+            event.preventDefault();
+            window.open(url, '_blank');
+        }
+
+        // Create shooting stars animation
+        function createShootingStar() {
+            const container = document.getElementById('starsContainer');
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            // Random starting position (top and left edges)
+            const startFromTop = Math.random() > 0.5;
+            if (startFromTop) {
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = '0%';
+            } else {
+                star.style.left = '0%';
+                star.style.top = Math.random() * 100 + '%';
+            }
+            
+            // Random animation delay
+            star.style.animationDelay = Math.random() * 2 + 's';
+            
+            container.appendChild(star);
+            
+            // Remove star after animation
+            setTimeout(() => {
+                star.remove();
+            }, 5000);
+        }
+
+        // Create sparkles around logo area
+        function createSparkle() {
+            const container = document.getElementById('starsContainer');
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            
+            // Position sparkles around center (logo area)
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 3;
+            const radius = 150;
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * radius;
+            
+            sparkle.style.left = (centerX + Math.cos(angle) * distance) + 'px';
+            sparkle.style.top = (centerY + Math.sin(angle) * distance) + 'px';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            
+            container.appendChild(sparkle);
+            
+            // Remove sparkle after animation
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        // Create shooting star with trail
+        function createShootingStarTrail() {
+            const container = document.getElementById('starsContainer');
+            
+            // Random starting position (from top or left edges)
+            const startFromTop = Math.random() > 0.5;
+            let startX, startY;
+            
+            if (startFromTop) {
+                startX = Math.random() * (window.innerWidth * 0.7);
+                startY = Math.random() * (window.innerHeight * 0.2);
+            } else {
+                startX = Math.random() * (window.innerWidth * 0.2);
+                startY = Math.random() * (window.innerHeight * 0.7);
+            }
+            
+            // Create leading star
+            const leadingStar = document.createElement('div');
+            leadingStar.className = 'leading-star';
+            leadingStar.style.left = startX + 'px';
+            leadingStar.style.top = startY + 'px';
+            
+            container.appendChild(leadingStar);
+            
+            // Create trail stars that appear behind the leading star
+            const trailLength = 8 + Math.floor(Math.random() * 5); // 8-12 trail stars
+            
+            for (let i = 0; i < trailLength; i++) {
+                setTimeout(() => {
+                    const trailStar = document.createElement('div');
+                    trailStar.className = 'trail-star';
+                    
+                    // Calculate current position of leading star
+                    const progress = (i * 60) / 2500; // 60ms intervals over 2500ms animation
+                    const currentX = startX + (500 * progress);
+                    const currentY = startY + (500 * progress);
+                    
+                    trailStar.style.left = currentX + 'px';
+                    trailStar.style.top = currentY + 'px';
+                    
+                    container.appendChild(trailStar);
+                    
+                    // Remove trail star after fade
+                    setTimeout(() => {
+                        trailStar.remove();
+                    }, 1500);
+                }, i * 60); // Create trail stars every 60ms
+            }
+            
+            // Remove leading star after animation
+            setTimeout(() => {
+                leadingStar.remove();
+            }, 2500);
+        }
+
+        // Add subtle entrance animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('header, nav a, main > p, footer');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+
+            // Start shooting stars animation (snow effect)
+            setInterval(createShootingStar, 800);
+            
+            // Start sparkles animation
+            setInterval(createSparkle, 600);
+            
+            // Start shooting star trail animation
+            setInterval(createShootingStarTrail, 2500);
+            
+            // Create initial shooting star trail
+            setTimeout(createShootingStarTrail, 1000);
+        });
+    </script>
+</body>
+</html>
