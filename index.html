@@ -254,9 +254,9 @@
             <nav class="w-full max-w-sm space-y-3 mb-8">
                 <!-- Facebook Button -->
                 <a 
-                    href="#" 
+                    href="https://facebook.com/dreamshots.dz" 
+                    target="_blank"
                     class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
-                    onclick="openLink('https://facebook.com/dreamshots.dz')"
                 >
                     <img src="img/Facebook.png" alt="Facebook" class="w-7 h-7 object-contain">
                     <span class="flex-1 text-center text-gray-800 font-semibold text-base">Facebook</span>
@@ -265,9 +265,9 @@
 
                 <!-- Instagram Button -->
                 <a 
-                    href="#" 
+                    href="https://instagram.com/dreamshots.dz" 
+                    target="_blank"
                     class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
-                    onclick="openLink('https://instagram.com/dreamshots.dz')"
                 >
                     <img src="img/Instagram.png" alt="Instagram" class="w-7 h-7 object-contain">
                     <span class="flex-1 text-center text-gray-800 font-semibold text-base">Instagram</span>
@@ -276,20 +276,30 @@
 
                 <!-- TikTok Button -->
                 <a 
-                    href="#" 
+                    href="https://tiktok.com/@dreamshots.dz" 
+                    target="_blank"
                     class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
-                    onclick="openLink('https://tiktok.com/@dreamshots.dz')"
                 >
                     <img src="img/TikTok.png" alt="TikTok" class="w-7 h-7 object-contain">
                     <span class="flex-1 text-center text-gray-800 font-semibold text-base">TikTok</span>
                     <span class="w-7"></span>
                 </a>
 
+                <!-- WhatsApp Button -->
+                <a 
+                    href="https://wa.me/213666712846" 
+                    target="_blank"
+                    class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
+                >
+                    <img src="img/Whatsapp.png" alt="WhatsApp" class="w-7 h-7 object-contain">
+                    <span class="flex-1 text-center text-gray-800 font-semibold text-base">WhatsApp</span>
+                    <span class="w-7"></span>
+                </a>
+
                 <!-- Gmail Button -->
                 <a 
-                    href="#" 
+                    href="mailto:dreamshots.dz@gmail.com" 
                     class="social-btn relative flex items-center bg-white rounded-2xl px-5 py-4 shadow-lg cursor-pointer"
-                    onclick="openLink('mailto:dreamshots.dz@gmail.com')"
                 >
                     <img src="img/Gmail.png" alt="Gmail" class="w-7 h-7 object-contain">
                     <span class="flex-1 text-center text-gray-800 font-semibold text-base">Gmail</span>
@@ -312,13 +322,8 @@
         </footer>
     </div>
 
-    <!-- JavaScript for Link Handling and Animations -->
+    <!-- JavaScript for Animations -->
     <script>
-        function openLink(url) {
-            event.preventDefault();
-            window.open(url, '_blank');
-        }
-
         // Create shooting stars animation
         function createShootingStar() {
             const container = document.getElementById('starsContainer');
